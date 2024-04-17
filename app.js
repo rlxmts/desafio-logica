@@ -6,8 +6,8 @@ let quantidade = document.querySelector('#quantidade');
 
 
 function sortear(){         
-    let de = parseInt(numeroMinimo.value);
-    let ate = parseInt(numeroMaximo.value);    
+    let de = numeroMinimo.value;
+    let ate = numeroMaximo.value;    
     
     while(listaDeNumerosSorteados.length != quantidade.value){  
         let numeroSorteado = gerarNumero(de, ate);        
