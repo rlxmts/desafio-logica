@@ -1,32 +1,29 @@
-const campoQntDeNum = document.querySelector('#quantidade');
-const campoNumMin = document.querySelector('#de');
-const numeroMaximo = document.querySelector('#ate');
-const resultado = document.querySelector('#resultado label');
-let listaDeNumerosSorteados = [];
+let resultado = document.querySelector('#resultado label');
+let listaDeNumerosSorteados = [];      
+let numeroMinimo = document.querySelector('#de');
+let numeroMaximo = document.querySelector('#ate');
+let quantidade = document.querySelector('#quantidade');
 
-function gerarNumero(){
-    return parseInt( Math.random() * numeroMaximo.value + 1)
-}
 
-function sortear(){
-
-   while(listaDeNumerosSorteados.length != campoQntDeNum.value ){        
-        let numeroSorteado = gerarNumero();       
-        gerarNumero();
-        if(numeroSorteado < campoNumMin.value || listaDeNumerosSorteados.includes(numeroSorteado)){
-            gerarNumero();
-        }else{
+function sortear(){         
+    let de = parseInt(numeroMinimo.value);
+    let ate = parseInt(numeroMaximo.value);    
+    
+    while(listaDeNumerosSorteados.length != quantidade.value){  
+        let numeroSorteado = gerarNumero(de, ate);        
+        if(!listaDeNumerosSorteados.includes(numeroSorteado)){
             listaDeNumerosSorteados.push(numeroSorteado);
-            resultado.innerText = `Números sorteados: ${listaDeNumerosSorteados}`;
         }
-   }    
+    }
+
+    resultado.innerText = `Números sorteados: ${listaDeNumerosSorteados}`;    
     alterarBotao();
 }
 
 function reiniciar(){
-    limparCampos(campoNumMin);
-    limparCampos(numeroMaximo);
-    limparCampos(campoQntDeNum);
+    limparCampos(de);
+    limparCampos(ate);
+    limparCampos(quantidade);
     alterarBotao();
     resultado.innerText = `Números sorteados:  nenhum até agora`;
 }
@@ -38,4 +35,10 @@ function limparCampos(elemento){
 function alterarBotao(){
     const btReiniciar = document.querySelector('#btn-reiniciar');
     btReiniciar.className = btReiniciar.className === "container__botao-desabilitado" ? "container__botao" : "container__botao-desabilitado";
+}
+
+function gerarNumero(min, max){
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
 }
